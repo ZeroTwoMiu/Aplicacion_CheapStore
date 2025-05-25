@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_producto"
+            android:icon="@drawable/ic_menu_producto"
+            android:title="@string/menu_producto" />
+        <item
+            android:id="@+id/nav_cliente"
+            android:icon="@drawable/ic_menu_cliente"
+            android:title="@string/menu_cliente" />
+        <item
+            android:id="@+id/nav_proveedor"
+            android:icon="@drawable/ic_menu_proveedor"
+            android:title="@string/menu_proveedor" />
+    </group>
+</menu>
