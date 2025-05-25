@@ -1,5 +1,7 @@
 package com.example.tiendaapp2.ui.producto;
 
+import static com.example.tiendaapp2.Login.servidor;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,7 +33,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProductoAgregar extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    final String servidor = "http://10.0.2.2/tienda2/";
+
     int idCategoria = -1;
     int idMarca = -1;
     private EditText cod,nom,des,pv,pc;
@@ -159,39 +161,70 @@ public class ProductoAgregar extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onClick(View v) {
-        if(v == reg) //si presiono el boton registrar
-        {
-            //Recogemos datos
-            String codigo = cod.getText().toString();
-            String nombre = nom.getText().toString();
-            String descripcion =  des.getText().toString();
-            double preComp = Double.parseDouble(pc.getText().toString());
-            double preVent = Double.parseDouble(pv.getText().toString());
+        if (v == reg) {
+            // Obtener datos en forma de texto
+            String codigo = cod.getText().toString().trim();
+            String nombre = nom.getText().toString().trim();
+            String descripcion = des.getText().toString().trim();
+            String strPreComp = pc.getText().toString().trim();
+            String strPreVent = pv.getText().toString().trim();
 
-            //Validamos
-            if(codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty() || preComp<0 || preVent<0)
-            {
-               Toast.makeText(getActivity(),"Complete los campos requeridos",Toast.LENGTH_SHORT).show();
-            }
-            else if(preComp>preVent)
-            {
-                Toast.makeText(getActivity(),"El precio de compra debe ser menor o igual al precio de venta",Toast.LENGTH_SHORT).show();
-            }
-            else if(idCategoria==-1)
-            {
-                Toast.makeText(getActivity(),"Seleccione una categoría válida",Toast.LENGTH_SHORT).show();
-            }
-            else if(idMarca==-1)
-            {
-                Toast.makeText(getActivity(),"Seleccione una marca válida",Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                RegistrarProducto(codigo,nombre,descripcion,preComp,preVent,idCategoria,idMarca);
+            // Validar campos vacíos
+            if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty() ||
+                    strPreComp.isEmpty() || strPreVent.isEmpty()) {
+                Toast.makeText(getActivity(), "Complete todos los campos", Toast.LENGTH_SHORT).show();
+                return;
             }
 
+            // Convertir precios a double
+            double preComp, preVent;
+            try {
+                preComp = Double.parseDouble(strPreComp);
+                preVent = Double.parseDouble(strPreVent);
+            } catch (NumberFormatException e) {
+                Toast.makeText(getActivity(), "Los precios deben ser números válidos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar lógica de precios y selección de opciones
+            if (preComp < 0 || preVent < 0) {
+                Toast.makeText(getActivity(), "Los precios no pueden ser negativos", Toast.LENGTH_SHORT).show();
+            } else if (preComp > preVent) {
+                Toast.makeText(getActivity(), "El precio de compra debe ser menor o igual al precio de venta", Toast.LENGTH_SHORT).show();
+            } else if (idCategoria == -1) {
+                Toast.makeText(getActivity(), "Seleccione una categoría válida", Toast.LENGTH_SHORT).show();
+            } else if (idMarca == -1) {
+                Toast.makeText(getActivity(), "Seleccione una marca válida", Toast.LENGTH_SHORT).show();
+            } else
+            {
+                // Verificamos si el código ya existe en la base de datos
+                String url = servidor + "producto_existe.php";
+                RequestParams params = new RequestParams();
+                params.put("codigo", codigo);
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(url, params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String respuesta = new String(responseBody).trim();
+
+                        if (respuesta.equalsIgnoreCase("existe")) {
+                            Toast.makeText(getActivity(), "El código ya está registrado. Use uno diferente.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Código no existe, registrar el producto
+                            RegistrarProducto(codigo, nombre, descripcion, preComp, preVent, idCategoria, idMarca);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(getActivity(), "Error al verificar el código: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     }
+
 
     private void LimpiarCampos()
     {

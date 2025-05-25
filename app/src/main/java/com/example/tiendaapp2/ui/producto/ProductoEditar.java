@@ -1,5 +1,7 @@
 package com.example.tiendaapp2.ui.producto;
 
+import static com.example.tiendaapp2.Login.servidor;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProductoEditar extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    final String servidor = "http://10.0.2.2/tienda2/";
     int idCategoria = -1;
     int idMarca = -1;
     int idProd;
@@ -327,12 +328,10 @@ public class ProductoEditar extends Fragment implements View.OnClickListener, Ad
                 Toast.makeText(getActivity(), "Respuesta: " + respuesta, Toast.LENGTH_LONG).show();
                 //LimpiarCampos();
 
-                //otra forma de regresar a la vista anterior
                 //volver a la vista anterior
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
                 navController.navigate(R.id.action_nav_producto_editar_to_nav_producto);
-                //otra forma de regresar a la vista anterior
-                
+
             }
 
             @Override

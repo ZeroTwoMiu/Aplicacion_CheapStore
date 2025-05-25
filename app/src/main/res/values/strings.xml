@@ -16,6 +16,7 @@
     <string name="menu_proveedor">Proveedor</string>
     <string name="menu_producto_agregar">Agregar Producto</string>
     <string name="menu_producto_editar">Editar Producto</string>
+    <string name="action_logout">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

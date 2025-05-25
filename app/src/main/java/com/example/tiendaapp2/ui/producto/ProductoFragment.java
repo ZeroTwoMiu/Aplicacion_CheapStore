@@ -1,5 +1,7 @@
 package com.example.tiendaapp2.ui.producto;
 
+import static com.example.tiendaapp2.Login.servidor;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +37,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProductoFragment extends Fragment implements View.OnClickListener {
 
-    final static String servidor = "http://10.0.2.2/tienda2/";
 
     ListView lista;
     Button agregar;
