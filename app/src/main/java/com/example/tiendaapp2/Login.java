@@ -26,12 +26,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String servidor = "http://10.0.2.2/tienda2/";
+    public static final String servidor = "http://10.0.2.2/cheapstore/";
 
     EditText usuarioEditText;
     EditText contraEditText;
     Button loginButton;
-    TextView signupText; // ID del TextView del XML
+    TextView signupText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         loginButton.setOnClickListener(this);
 
-        // Si quieres manejar la acción del texto "¿No tienes cuenta? Regístrate aquí"
+
         signupText.setOnClickListener(v -> {
             Toast.makeText(this, "Redirigir a registro (a implementar)", Toast.LENGTH_SHORT).show();
             // Puedes lanzar una nueva actividad aquí

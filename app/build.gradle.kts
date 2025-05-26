@@ -49,5 +49,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.loopj.android:android-async-http:1.4.11")
+    implementation ("com.itextpdf:itextg:5.5.10")
 
 }

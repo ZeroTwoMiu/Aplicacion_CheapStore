@@ -1,5 +1,7 @@
 package com.example.tiendaapp2.ui.producto;
 
+import com.itextpdf.text.pdf.PdfPCell;
+
 public class Producto {
 
     int id;

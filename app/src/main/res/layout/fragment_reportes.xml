@@ -9,7 +9,7 @@
 
     <!-- Título -->
 
-    <!-- Lista de ventas -->
+    <!-- Lista de Reportes -->
     <TextView
         android:id="@+id/tvTituloReportes"
         android:layout_width="0dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/lstReportesVentas"
+        android:id="@+id/lstReportes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:divider="@android:color/darker_gray"
@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Descargar Reporte"
-        app:layout_constraintTop_toBottomOf="@+id/lstReportesVentas"
+        app:layout_constraintTop_toBottomOf="@+id/lstReportes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

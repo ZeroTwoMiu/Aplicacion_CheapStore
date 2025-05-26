@@ -14,6 +14,7 @@
     <string name="menu_cliente">Cliente</string>
     <string name="menu_producto">Producto</string>
     <string name="menu_proveedor">Proveedor</string>
+    <string name="reportes">Reportes</string>">
     <string name="menu_producto_agregar">Agregar Producto</string>
     <string name="menu_producto_editar">Editar Producto</string>
     <string name="action_logout">Logout</string>
