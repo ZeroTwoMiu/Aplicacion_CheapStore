@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Logo o Icono -->
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo de la aplicación"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvAboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Venta de Hardware y Software"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#2C3E50"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/tvAboutDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Somos tu mejor opción para adquirir hardware y software de cómputo con la mejor calidad y soporte técnico."
+            android:textSize="16sp"
+            android:textColor="#34495E"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Datos de contacto -->
+        <TextView
+            android:id="@+id/tvAboutContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contacto:\nemail@empresa.com\nwww.tuempresa.com"
+            android:textSize="14sp"
+            android:textColor="#7F8C8D"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Versión -->
+        <TextView
+            android:id="@+id/tvAboutVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Versión 1.0"
+            android:textSize="14sp"
+            android:textColor="#95A5A6" />
+    </LinearLayout>
+</ScrollView>
