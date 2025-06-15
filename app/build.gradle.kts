@@ -50,5 +50,7 @@ dependencies {
 
     implementation("com.loopj.android:android-async-http:1.4.11")
     implementation ("com.itextpdf:itextg:5.5.10")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
 }

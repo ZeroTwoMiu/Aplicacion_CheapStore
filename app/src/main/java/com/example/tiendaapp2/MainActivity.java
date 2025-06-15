@@ -1,14 +1,23 @@
 package com.example.tiendaapp2;
 
+
+import static com.example.tiendaapp2.R.layout.custom_cambiar_password;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,6 +26,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tiendaapp2.databinding.ActivityMainBinding;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.httpclient.android.BuildConfig;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         //acceder al nav_header_main
         View headerView = binding.navView.getHeaderView(0);
+
         //accerder a los textview del nav_header_main
         TextView tvMenuUsuario = headerView.findViewById(R.id.tvMenuUsuario);
         TextView tvMenuEmail = headerView.findViewById(R.id.tvMenuEmail);
+        ImageView imgMenuFoto = headerView.findViewById(R.id.imgMenuFoto);
 
         //obtener datos de SharedPreferences
         String username = getSharedPreferences("datos", MODE_PRIVATE).getString("username", "");
@@ -42,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
         String id_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("id_empleado", "");
         String nom_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("nom_empleado", "");
         String em_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("em_empleado", "");
+        String foto_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("foto_empleado", "");
 
 
         //mostrar datos en los textview
         tvMenuUsuario.setText(nom_empleado);
         tvMenuEmail.setText(em_empleado);
+
+        //mostrar foto en el imageview
+        //Glide.with(this).load(foto_empleado).into(imgMenuFoto);
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +102,245 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        menu.findItem(R.id.action_password).setOnMenuItemClickListener(item -> {
+            modalCambiarContraseña();
+            return true;
+        });
+
+        menu.findItem(R.id.action_datos).setOnMenuItemClickListener(item -> {
+            modalCambiarDatos();
+            return true;
+        });
+
+        menu.findItem(R.id.action_about).setOnMenuItemClickListener(item -> {
+            modalAbout(); //mostrar información sobr el app
+            return true;
+        });
+
         return true;
+    }
+
+
+    private void modalAbout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.custom_about, null);
+
+        TextView tvVersion = dialogView.findViewById(R.id.tvAboutVersion);
+        String version = BuildConfig.VERSION_NAME;
+        tvVersion.setText("Versión " + version);
+
+        builder.setView(dialogView);
+        builder.setPositiveButton("Cerrar", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void modalCambiarDatos() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.custom_cambiar_datos, null);
+        builder.setView(view);
+        builder.setTitle("Actualizar Datos Personales");
+
+        // Referencias a los EditText
+        EditText etNom = view.findViewById(R.id.etNomEmpleado);
+        EditText etApat = view.findViewById(R.id.etApatEmpleado);
+        EditText etAmat = view.findViewById(R.id.etAmatEmpleado);
+        EditText etNdoc = view.findViewById(R.id.etNdocEmpleado);
+        EditText etCel = view.findViewById(R.id.etCelEmpleado);
+        EditText etEm = view.findViewById(R.id.etEmEmpleado);
+        EditText etDir = view.findViewById(R.id.etDirEmpleado);
+        EditText etFn = view.findViewById(R.id.etFnEmpleado);
+
+        // Cargar datos actuales desde SharedPreferences
+        etNom.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("nom_empleado", ""));
+        etApat.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("apat_empleado", ""));
+        etAmat.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("amat_empleado", ""));
+        etNdoc.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("ndoc_empleado", ""));
+        etCel.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("cel_empleado", ""));
+        etEm.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("em_empleado", ""));
+        etDir.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("dir_empleado", ""));
+        etFn.setText(getSharedPreferences("datos", MODE_PRIVATE).getString("fn_empleado", ""));
+
+        builder.setPositiveButton("Guardar", (dialogInterface, i) -> {
+            String nom = etNom.getText().toString().trim();
+            String apat = etApat.getText().toString().trim();
+            String amat = etAmat.getText().toString().trim();
+            String ndoc = etNdoc.getText().toString().trim();
+            String cel = etCel.getText().toString().trim();
+            String em = etEm.getText().toString().trim();
+            String dir = etDir.getText().toString().trim();
+            String fn = etFn.getText().toString().trim();
+
+            if (nom.isEmpty() || apat.isEmpty() || amat.isEmpty() || ndoc.isEmpty() || cel.isEmpty() || em.isEmpty() || dir.isEmpty() || fn.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            } else {
+                String id_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("id_empleado", "");
+                ActualizarDatosPersonales(id_empleado, nom, apat, amat, ndoc, cel, em, dir, fn);
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void modalCambiarContraseña() {
+        //Crear un AlertDialog personalizado para cambiar contraseña
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(custom_cambiar_password, null);
+        builder.setView(view);
+
+        final EditText etPassActual = view.findViewById(R.id.etPassActual);
+        final EditText etPassNueva = view.findViewById(R.id.etPassNueva);
+        final EditText etPassConfirmar = view.findViewById(R.id.etPassConfirmar);
+
+        //hacer referencia al titulo
+        builder.setTitle("Cambiar Contraseña");
+
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                String passActual = etPassActual.getText().toString();
+                String passNueva = etPassNueva.getText().toString();
+                String passConfirmar = etPassConfirmar.getText().toString();
+
+                //obtener contraseña de SharedPreferences
+                String password = getSharedPreferences("datos", MODE_PRIVATE).getString("password", "");
+                String id_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("id_empleado", "");
+
+                //validar que contraseña actual sea igual a la contraseña del SharedPrefenrece
+                if(passActual.equals(password)){
+                    //validar que contraseña nueva y confirmar contraseña sean iguales
+                    if(passNueva.equals(passConfirmar)){
+                        //validar que contraseña nueva no sea igual a la contraseña actual
+                        if(!passNueva.equals(passActual)){
+                            //validar que contraseña nueva no este vacia
+                            if(!passNueva.isEmpty()){
+                                ActualizarContraseña(passNueva,id_empleado);
+                            }else{
+                                Toast.makeText(MainActivity.this, "Contraseña nueva no puede estar vacia", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(MainActivity.this, "Contraseña nueva no puede ser igual a la actual", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(MainActivity.this, "Contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(MainActivity.this, "Contraseña actual incorrecta", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //cerrar el dialog
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void ActualizarContraseña(String passNueva, String id_empleado) {
+        String url = Login.servidor + "usuario_actualizar_contra.php";
+
+        RequestParams params = new RequestParams();
+        params.put("id_empleado", id_empleado);
+        params.put("password", passNueva);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                String respuesta = new String(responseBody);
+                try {
+                    JSONObject jsonObject = new JSONObject(respuesta);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {
+                        // Actualizar SharedPreferences con la nueva contraseña
+                        getSharedPreferences("datos", MODE_PRIVATE).edit()
+                                .putString("password", passNueva)
+                                .apply();
+
+                        Toast.makeText(MainActivity.this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show();
+                        new android.os.Handler().postDelayed(() -> logout(), 1000);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(MainActivity.this, "Error de conexión: " + statusCode, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void ActualizarDatosPersonales(String id_empleado, String nom, String apat, String amat, String ndoc, String cel, String em, String dir, String fn) {
+        String url = Login.servidor + "usuario_actualizar_datos.php";
+
+        RequestParams params = new RequestParams();
+        params.put("id_empleado", id_empleado);
+        params.put("nom_empleado", nom);
+        params.put("apat_empleado", apat);
+        params.put("amat_empleado", amat);
+        params.put("ndoc_empleado", ndoc);
+        params.put("cel_empleado", cel);
+        params.put("em_empleado", em);
+        params.put("dir_empleado", dir);
+        params.put("fn_empleado", fn);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                String respuesta = new String(responseBody);
+                try {
+                    JSONObject jsonObject = new JSONObject(respuesta);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {
+                        Toast.makeText(MainActivity.this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
+
+                        // Actualizar SharedPreferences con los nuevos datos
+                        getSharedPreferences("datos", MODE_PRIVATE).edit()
+                                .putString("nom_empleado", nom)
+                                .putString("apat_empleado", apat)
+                                .putString("amat_empleado", amat)
+                                .putString("ndoc_empleado", ndoc)
+                                .putString("cel_empleado", cel)
+                                .putString("em_empleado", em)
+                                .putString("dir_empleado", dir)
+                                .putString("fn_empleado", fn)
+                                .apply();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Error al actualizar datos", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error al procesar la respuesta del servidor", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(MainActivity.this, "Error de conexión: " + statusCode, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void logout() {

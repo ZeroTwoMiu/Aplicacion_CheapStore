@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText contraEditText;
     Button loginButton;
     TextView signupText;
+    ProgressBar progressBarLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         contraEditText = findViewById(R.id.contra);
         loginButton = findViewById(R.id.loginButton);
         signupText = findViewById(R.id.signupText);
+        progressBarLogin = findViewById(R.id.progressBarLogin); // debes agregar este ProgressBar en tu XML
 
         loginButton.setOnClickListener(this);
-
 
         signupText.setOnClickListener(v -> {
             Toast.makeText(this, "Redirigir a registro (a implementar)", Toast.LENGTH_SHORT).show();
@@ -60,7 +62,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             IniciarSesion(username, password);
         }
 
-        // Aplicar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -82,6 +83,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void IniciarSesion(String username, String password) {
+        progressBarLogin.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.GONE);
+
         String url = servidor + "usuario_autentificar.php";
 
         RequestParams requestParams = new RequestParams();
@@ -92,6 +96,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         client.get(url, requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progressBarLogin.setVisibility(View.GONE);
+                loginButton.setVisibility(View.VISIBLE);
+
                 String respuesta = new String(responseBody);
                 try {
                     JSONArray jsonArray = new JSONArray(respuesta);
@@ -102,9 +109,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         String id_empleado = usuario.getString("id_empleado");
                         String nom_empleado = usuario.getString("nom_empleado");
                         String em_empleado = usuario.getString("em_empleado");
+                        String foto_empleado = usuario.optString("foto_empleado", "");
 
                         Toast.makeText(getApplicationContext(), "Bienvenido " + nom_empleado, Toast.LENGTH_LONG).show();
-                        GuardarSharedPreferences(username, password, id_empleado, nom_empleado, em_empleado);
+                        GuardarSharedPreferences(username, password, id_empleado, nom_empleado, em_empleado, foto_empleado);
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra("id", respuesta);
@@ -119,18 +127,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                progressBarLogin.setVisibility(View.GONE);
+                loginButton.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(), "Error de conexión: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void GuardarSharedPreferences(String username, String password, String id_empleado, String nom_empleado, String em_empleado) {
+    private void GuardarSharedPreferences(String username, String password, String id_empleado, String nom_empleado, String em_empleado, String foto_empleado) {
         getSharedPreferences("datos", MODE_PRIVATE).edit()
                 .putString("username", username)
                 .putString("password", password)
                 .putString("id_empleado", id_empleado)
                 .putString("nom_empleado", nom_empleado)
                 .putString("em_empleado", em_empleado)
+                .putString("foto_empleado", foto_empleado)
                 .apply();
     }
 }
