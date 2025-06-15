@@ -11,10 +11,14 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
-    <string name="menu_cliente">Cliente</string>
+    <string name="menu_venta">Venta</string>
+    <string name="menu_compra">Compra</string>
     <string name="menu_producto">Producto</string>
+    <string name="menu_cliente">Cliente</string>
     <string name="menu_proveedor">Proveedor</string>
+    <string name="menu_empleado">Empleado</string>
     <string name="reportes">Reportes</string>">
+
     <string name="menu_producto_agregar">Agregar Producto</string>
     <string name="menu_producto_editar">Editar Producto</string>
     <string name="action_logout">Logout</string>
