@@ -110,9 +110,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         String nom_empleado = usuario.getString("nom_empleado");
                         String em_empleado = usuario.getString("em_empleado");
                         String foto_empleado = usuario.optString("foto_empleado", "");
+                        String nom_cargo = usuario.getString("nom_cargo");
+                        int opc_venta = usuario.getInt("opc_venta");
+                        int opc_compra = usuario.getInt("opc_compra");
+                        int opc_producto = usuario.getInt("opc_producto");
+                        int opc_cliente = usuario.getInt("opc_cliente");
+                        int opc_proveedor = usuario.getInt("opc_proveedor");
+                        int opc_empleado = usuario.getInt("opc_empleado");
+                        int opc_reportes = usuario.getInt("opc_reportes");
 
                         Toast.makeText(getApplicationContext(), "Bienvenido " + nom_empleado, Toast.LENGTH_LONG).show();
-                        GuardarSharedPreferences(username, password, id_empleado, nom_empleado, em_empleado, foto_empleado);
+                        GuardarSharedPreferences(username, password, id_empleado, nom_empleado, em_empleado, foto_empleado,
+                                nom_cargo, opc_venta, opc_compra, opc_producto, opc_cliente, opc_proveedor, opc_empleado, opc_reportes);
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra("id", respuesta);
@@ -134,7 +143,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-    private void GuardarSharedPreferences(String username, String password, String id_empleado, String nom_empleado, String em_empleado, String foto_empleado) {
+    private void GuardarSharedPreferences(String username, String password, String id_empleado, String nom_empleado, String em_empleado,
+                                          String foto_empleado, String nom_cargo, int opc_venta, int opc_compra, int opc_producto,
+                                          int opc_cliente, int opc_proveedor, int opc_empleado, int opc_reportes) {
         getSharedPreferences("datos", MODE_PRIVATE).edit()
                 .putString("username", username)
                 .putString("password", password)
@@ -142,6 +153,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 .putString("nom_empleado", nom_empleado)
                 .putString("em_empleado", em_empleado)
                 .putString("foto_empleado", foto_empleado)
+                .putString("nom_cargo", nom_cargo)
+                .putInt("opc_venta", opc_venta)
+                .putInt("opc_compra", opc_compra)
+                .putInt("opc_producto", opc_producto)
+                .putInt("opc_cliente", opc_cliente)
+                .putInt("opc_proveedor", opc_proveedor)
+                .putInt("opc_empleado", opc_empleado)
+                .putInt("opc_reportes", opc_reportes)
+
                 .apply();
     }
 }

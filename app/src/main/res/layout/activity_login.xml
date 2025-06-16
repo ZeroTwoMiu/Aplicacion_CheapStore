@@ -27,11 +27,12 @@
                 android:id="@+id/loginText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/limelightregular"
                 android:text="Iniciar sesión"
-                android:textSize="32sp"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/usuario"

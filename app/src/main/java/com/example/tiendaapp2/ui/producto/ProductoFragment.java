@@ -5,6 +5,7 @@ import static com.example.tiendaapp2.Login.servidor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tiendaapp2.R;
 import com.loopj.android.http.AsyncHttpClient;
@@ -35,11 +37,12 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 
-public class ProductoFragment extends Fragment implements View.OnClickListener {
+public class ProductoFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     ListView lista;
     Button agregar;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class ProductoFragment extends Fragment implements View.OnClickListener {
         lista = (ListView) rootView.findViewById(R.id.lstProductos);
         agregar = (Button) rootView.findViewById(R.id.btnAgregarProducto);
         agregar.setOnClickListener(this);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         ListarPoducto();
 
@@ -178,5 +183,13 @@ public class ProductoFragment extends Fragment implements View.OnClickListener {
             navController.navigate(R.id.action_nav_producto_to_nav_producto_agregar);
         }
 
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(() -> {
+            ListarPoducto();
+            swipeRefreshLayout.setRefreshing(false);
+        },1500);
     }
 }

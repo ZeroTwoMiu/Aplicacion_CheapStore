@@ -5,6 +5,7 @@ import static com.example.tiendaapp2.R.layout.custom_cambiar_password;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -61,34 +63,70 @@ public class MainActivity extends AppCompatActivity {
         String nom_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("nom_empleado", "");
         String em_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("em_empleado", "");
         String foto_empleado = getSharedPreferences("datos", MODE_PRIVATE).getString("foto_empleado", "");
+        String nom_cargo = getSharedPreferences("datos", MODE_PRIVATE).getString("nom_cargo", "");
+        int opc_venta = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_venta", 0);
+        int opc_compra = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_compra", 0);
+        int opc_producto = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_producto", 0);
+        int opc_cliente = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_cliente", 0);
+        int opc_proveedor = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_proveedor", 0);
+        int opc_empleado = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_empleado", 0);
+        int opc_reportes = getSharedPreferences("datos", MODE_PRIVATE).getInt("opc_reportes", 0);
 
 
         //mostrar datos en los textview
         tvMenuUsuario.setText(nom_empleado);
-        tvMenuEmail.setText(em_empleado);
+        tvMenuEmail.setText(nom_cargo);
 
         //mostrar foto en el imageview
-        //Glide.with(this).load(foto_empleado).into(imgMenuFoto);
+        //imgMenuFoto.getLayoutParams().height = 200;
+        //imgMenuFoto.getLayoutParams().width = 200;
+        //Glide.with(this).load(Login.servidor+foto_empleado).into(imgMenuFoto);
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null)
                         .setAnchorView(R.id.fab).show();
+
+                //abrir una pagina web
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/CheapStorPe"));
+                startActivity(intent);
+
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_producto, R.id.nav_cliente, R.id.nav_proveedor, R.id.nav_reportes)
+                R.id.nav_venta,R.id.nav_compra,R.id.nav_producto, R.id.nav_cliente, R.id.nav_proveedor,R.id.nav_empleado, R.id.nav_reportes)
                 .setOpenableLayout(drawer)
                 .build();
+        VerificarAcceso(navigationView, opc_venta, opc_compra, opc_producto, opc_cliente, opc_proveedor, opc_empleado, opc_reportes);
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    private void VerificarAcceso(NavigationView navigationView, int opc_venta, int opc_compra, int opc_producto,
+                                 int opc_cliente, int opc_proveedor, int opc_empleado, int opc_reportes) {
+        if(opc_venta==0) //ocultar nav_venta
+            navigationView.getMenu().findItem(R.id.nav_venta).setVisible(false);
+        if(opc_compra==0) //ocultar nav_compra
+            navigationView.getMenu().findItem(R.id.nav_compra).setVisible(false);
+        if(opc_producto==0) //ocultar nav_producto
+            navigationView.getMenu().findItem(R.id.nav_producto).setVisible(false);
+        if(opc_cliente==0) //ocultar nav_cliente
+            navigationView.getMenu().findItem(R.id.nav_cliente).setVisible(false);
+        if(opc_proveedor==0) //ocultar nav_proveedor
+            navigationView.getMenu().findItem(R.id.nav_proveedor).setVisible(false);
+        if(opc_empleado==0) //ocultar nav_empleado
+            navigationView.getMenu().findItem(R.id.nav_empleado).setVisible(false);
+        if(opc_reportes==0) //ocultar nav_reportes
+            navigationView.getMenu().findItem(R.id.nav_reportes).setVisible(false);
     }
 
     @Override
