@@ -38,15 +38,14 @@ Aplicación móvil desarrollada con Android Studio. Este proyecto tiene como obj
 
 ## 📦 Archivos de Descarga
 
-- [📁 Descargar Archivos PHP](./Complementos/ArchivosPHP.rar)
-- [🗄️ Descargar Base de Datos (.sql)](./Complementos/Base_de_datos.sql)
+- [📁 Descargar Archivos PHP](./Complementos/cheapstore.rar)
+- [🗄️ Descargar Base de Datos (.sql)](./Complementos/SQLcheapstore.sql)
 
 ## 📸 Capturas de Pantalla
 
 <p align="center">
-  <img src="Complementos/android.png" alt="Inicio" width="250"/>
-  <img src="Complementos/android.png" alt="Login" width="250"/>
-  <img src="Complementos/android.png" alt="Productos" width="250"/>
+  <img src="Complementos/Cap1.png" alt="Preview 1" width="250"/>
+  <img src="Complementos/cap2.png" alt="Preview 2" width="250"/>
 </p>
 
 ## 📄 Licencia
