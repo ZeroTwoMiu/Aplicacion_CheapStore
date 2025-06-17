@@ -3,7 +3,6 @@ package com.example.tiendaapp2.ui.producto;
 import static com.example.tiendaapp2.Login.servidor;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,164 +29,171 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-
 public class ProductoFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-
 
     ListView lista;
     Button agregar;
     SwipeRefreshLayout swipeRefreshLayout;
+    SearchView searchView;
 
+    ProductoAdapter adapter;
+    ArrayList<Producto> listaProductosOriginal = new ArrayList<>();
+    ArrayList<Producto> listaFiltrada = new ArrayList<>();
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_producto, container, false);
 
-        lista = (ListView) rootView.findViewById(R.id.lstProductos);
-        agregar = (Button) rootView.findViewById(R.id.btnAgregarProducto);
-        agregar.setOnClickListener(this);
+        lista = rootView.findViewById(R.id.lstProductos);
+        agregar = rootView.findViewById(R.id.btnAgregarProducto);
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefresh);
+        searchView = rootView.findViewById(R.id.searchView); // Asegúrate de tenerlo en tu XML
+
+        agregar.setOnClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        ListarPoducto();
+        configurarBuscador();
+        ListarProducto();
 
         return rootView;
     }
 
-    private void ListarPoducto() {
-        //Declarar la URL
+    private void configurarBuscador() {
+        searchView.setQueryHint("Buscar por nombre");
+        searchView.setIconifiedByDefault(false); // Para que esté expandido
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // No usado
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrarLista(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filtrarLista(String texto) {
+        listaFiltrada.clear();
+
+        if (texto.isEmpty()) {
+            listaFiltrada.addAll(listaProductosOriginal);
+        } else {
+            for (Producto p : listaProductosOriginal) {
+                if (p.getNombre().toLowerCase().contains(texto.toLowerCase())) {
+                    listaFiltrada.add(p);
+                }
+            }
+        }
+
+        adapter = new ProductoAdapter(getActivity(), listaFiltrada);
+        lista.setAdapter(adapter);
+    }
+
+    private void ListarProducto() {
         String url = servidor + "producto_mostrar.php";
+        AsyncHttpClient client = new AsyncHttpClient();
 
-        //Enviar parámetros
-        RequestParams requestParams = new RequestParams();
-
-        //Envio al web service y respuesta
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.get(url, requestParams, new AsyncHttpResponseHandler() {
+        client.get(url, new RequestParams(), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String respuesta = new String(responseBody);
-                //Toast.makeText(getApplicationContext(), "Respuesta: " + respuesta, Toast.LENGTH_LONG).show();
-                // Parsear el JSON
+
                 try {
                     JSONArray jsonArray = new JSONArray(respuesta);
+                    listaProductosOriginal.clear();
 
-                    // Crear una lista para almacenar los objetos
-                    ArrayList<Producto> productosList = new ArrayList<>();
-
-                    // Recorrer el array JSON y agregar cada contacto a la lista
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject contactoJson = jsonArray.getJSONObject(i);
+                        JSONObject obj = jsonArray.getJSONObject(i);
 
-                        int id_producto = contactoJson.getInt("id_producto");
-                        String cod_producto = contactoJson.getString("cod_producto");
-                        String nom_producto = contactoJson.getString("nom_producto");
-                        String nom_categoria = contactoJson.getString("nom_categoria");
-                        String nom_marca = contactoJson.getString("nom_marca");
-                        String des_producto = contactoJson.getString("des_producto");
-                        double pco_producto = contactoJson.getDouble("pco_producto");
-                        double pve_producto = contactoJson.getDouble("pve_producto");
-                        double stk_producto = contactoJson.getDouble("stk_producto");
-
-                        // Crear un objeto Contact y agregarlo a la lista
-                        Producto producto = new Producto(id_producto,
-                                cod_producto,
-                                nom_producto,
-                                nom_categoria,
-                                nom_marca,
-                                des_producto,
-                                pco_producto,
-                                pve_producto,
-                                stk_producto
+                        Producto producto = new Producto(
+                                obj.getInt("id_producto"),
+                                obj.getString("cod_producto"),
+                                obj.getString("nom_producto"),
+                                obj.getString("nom_categoria"),
+                                obj.getString("nom_marca"),
+                                obj.getString("des_producto"),
+                                obj.getDouble("pco_producto"),
+                                obj.getDouble("pve_producto"),
+                                obj.getDouble("stk_producto")
                         );
-                        productosList.add(producto);
+                        listaProductosOriginal.add(producto);
                     }
 
-                    Toast.makeText(getActivity(),String.valueOf(jsonArray.length()),Toast.LENGTH_SHORT).show();
+                    listaFiltrada.clear();
+                    listaFiltrada.addAll(listaProductosOriginal);
 
-                    // Crear el adaptador
-                    ProductoAdapter adapter = new ProductoAdapter(getActivity(), productosList);
-                    // Establecer el adaptador en el ListView
+                    adapter = new ProductoAdapter(getActivity(), listaFiltrada);
                     lista.setAdapter(adapter);
+                    swipeRefreshLayout.setRefreshing(false);
 
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    Toast.makeText(getActivity(), "Error al procesar datos", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String mensaje = "Error: " + statusCode + " - " + error.getMessage();
-                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
-    public static void EliminarProducto(int id, Context context)
-    {
-        //Declarar la URL
+    public static void EliminarProducto(int id, Context context) {
         String url = servidor + "producto_eliminar.php";
+        RequestParams params = new RequestParams();
+        params.put("id", id);
 
-        //Enviar parámetros
-        RequestParams requestParams = new RequestParams();
-        requestParams.put("id",id);
-
-        //Envio al web service y respuesta
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.get(url, requestParams, new AsyncHttpResponseHandler() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String respuesta = new String(responseBody);
-                Toast.makeText(context, "Respuesta: " + respuesta, Toast.LENGTH_LONG).show();
-
-                if (context instanceof AppCompatActivity) {
-                    AppCompatActivity activity = (AppCompatActivity) context;
-
-                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment_content_main);
+                Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                if (context instanceof androidx.appcompat.app.AppCompatActivity) {
+                    NavController navController = Navigation.findNavController((androidx.appcompat.app.AppCompatActivity) context, R.id.nav_host_fragment_content_main);
                     navController.navigate(R.id.action_nav_producto_self);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String mensaje = "Error: " + statusCode + " - " + error.getMessage();
-                Toast.makeText(context,mensaje,Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error al eliminar", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    public static void EditarProducto(int id, Context context)
-    {
-        if (context instanceof AppCompatActivity) {
-            AppCompatActivity activity = (AppCompatActivity) context;
-
+    public static void EditarProducto(int id, Context context) {
+        if (context instanceof androidx.appcompat.app.AppCompatActivity) {
             Bundle bundle = new Bundle();
             bundle.putInt("idProd", id);
-
-            NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_nav_producto_to_nav_producto_editar,bundle);
+            NavController navController = Navigation.findNavController((androidx.appcompat.app.AppCompatActivity) context, R.id.nav_host_fragment_content_main);
+            navController.navigate(R.id.action_nav_producto_to_nav_producto_editar, bundle);
         }
     }
 
     @Override
     public void onClick(View v) {
-        if(v==agregar)
-        {
+        if (v == agregar) {
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
             navController.navigate(R.id.action_nav_producto_to_nav_producto_agregar);
         }
-
     }
 
     @Override
     public void onRefresh() {
         new Handler().postDelayed(() -> {
-            ListarPoducto();
+            ListarProducto();
             swipeRefreshLayout.setRefreshing(false);
-        },1500);
+        }, 1000);
     }
 }
