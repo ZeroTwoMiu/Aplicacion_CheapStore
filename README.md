@@ -38,8 +38,8 @@ Aplicación móvil desarrollada con Android Studio. Este proyecto tiene como obj
 
 ## 📦 Archivos de Descarga
 
-- [📁 Descargar Archivos PHP](./Complementos/cheapstore.rar)
-- [🗄️ Descargar Base de Datos (.sql)](./Complementos/SQLcheapstore.sql)
+- [📁 Descargar Archivos PHP](https://github.com/ZeroTwoMiu/Aplicacion_CheapStore/raw/master/Complementos/cheapstore.rar)
+- [🗄️ Descargar Base de Datos (.sql)](https://github.com/ZeroTwoMiu/Aplicacion_CheapStore/raw/master/Complementos/SQLcheapstore.rar)
 
 ## 📸 Capturas de Pantalla
 
