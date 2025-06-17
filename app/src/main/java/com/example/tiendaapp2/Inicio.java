@@ -64,15 +64,13 @@ public class Inicio extends AppCompatActivity {
 
     }
 
-    public void Accerder()
-    {
+    public void Accerder() {
         //verificar si hay datos guardados en SharedPreferences
         String username = getSharedPreferences("datos", MODE_PRIVATE).getString("username", "");
         String password = getSharedPreferences("datos", MODE_PRIVATE).getString("password", "");
         if (!username.isEmpty() && !password.isEmpty()) {
             IniciarSesion(username, password);
-        }
-        else {
+        } else {
             Intent intent = new Intent(Inicio.this, Login.class);
             startActivity(intent);
         }
@@ -81,7 +79,7 @@ public class Inicio extends AppCompatActivity {
     private void IniciarSesion(String username, String password) {
 
 
-        String url = Login.servidor+"usuario_autentificar.php";
+        String url = Login.servidor + "usuario_autentificar.php";
 
         RequestParams requestParams = new RequestParams();
         requestParams.put("username", username);
@@ -98,24 +96,21 @@ public class Inicio extends AppCompatActivity {
                 try {
                     jsonArray = new JSONArray(respuesta);
 
-                    if(jsonArray.length()==0)
-                    {
+                    if (jsonArray.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        String id_empleado="";
-                        String nom_empleado="";
-                        String em_empleado="";
-                        String foto_empleado="";
-                        String nom_cargo="";
-                        int opc_venta=0;
-                        int opc_compra=0;
-                        int opc_producto=0;
-                        int opc_cliente=0;
-                        int opc_proveedor=0;
-                        int opc_empleado=0;
-                        int opc_reportes=0;
+                    } else {
+                        String id_empleado = "";
+                        String nom_empleado = "";
+                        String em_empleado = "";
+                        String foto_empleado = "";
+                        String nom_cargo = "";
+                        int opc_venta = 0;
+                        int opc_compra = 0;
+                        int opc_producto = 0;
+                        int opc_cliente = 0;
+                        int opc_proveedor = 0;
+                        int opc_empleado = 0;
+                        int opc_reportes = 0;
 
                         // Recorrer el array JSON y agregar cada contacto a la lista
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -137,8 +132,8 @@ public class Inicio extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Bienvenido " + nom_empleado, Toast.LENGTH_LONG).show();
 
                         //guardar datos en SharedPreferences
-                        GuardarSharedPreferences(username, password,id_empleado,nom_empleado,em_empleado,foto_empleado,nom_cargo,
-                                opc_venta,opc_compra,opc_producto,opc_cliente,opc_proveedor,opc_empleado,opc_reportes);
+                        GuardarSharedPreferences(username, password, id_empleado, nom_empleado, em_empleado, foto_empleado, nom_cargo,
+                                opc_venta, opc_compra, opc_producto, opc_cliente, opc_proveedor, opc_empleado, opc_reportes);
 
                         Intent intent = new Intent(Inicio.this, MainActivity.class);
                         intent.putExtra("id", respuesta);
@@ -152,15 +147,12 @@ public class Inicio extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-
-
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 String mensaje = "Error: " + statusCode + " - " + error.getMessage();
-                Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
 
             }
         });
