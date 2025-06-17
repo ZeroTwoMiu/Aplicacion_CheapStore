@@ -5,6 +5,7 @@ import static com.example.tiendaapp2.R.layout.custom_cambiar_password;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -109,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        SharedPreferences preferences = getSharedPreferences("datos", MODE_PRIVATE);
+        String nomCargo = preferences.getString("nom_cargo", "");
+        mostrarDialogoCargo("", nomCargo); // puedes pasar "" como tipoCargo si ya no lo necesitas
+
+
     }
 
     private void VerificarAcceso(NavigationView navigationView, int opc_venta, int opc_compra, int opc_producto,
@@ -397,6 +404,41 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
+
+    public void mostrarDialogoCargo(String tipoCargo, String nomCargo) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_alert_empleado, null);
+
+        TextView tvCargo = dialogView.findViewById(R.id.tvCargo);
+        TextView tvOpciones = dialogView.findViewById(R.id.tvOpciones);
+
+        tvCargo.setText("Has iniciado sesión como: " + nomCargo);
+
+        String opciones;
+
+        switch (nomCargo) {
+            case "Administrador":
+                opciones = "- Gestión de ventas\n- Gestión de compras\n- Productos\n- Clientes\n- Proveedores\n- Empleados\n- Reportes";
+                break;
+            case "Vendedor":
+                opciones = "- Gestión de ventas\n- Productos\n- Clientes";
+                break;
+            case "Almacenero":
+                opciones = "- Gestión de compras\n- Productos\n- Proveedores";
+                break;
+            default:
+                opciones = "Sin acceso definido";
+                break;
+        }
+
+        tvOpciones.setText("Opciones disponibles:\n" + opciones);
+
+        builder.setView(dialogView);
+        builder.setPositiveButton("Aceptar", null);
+        builder.create().show();
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
