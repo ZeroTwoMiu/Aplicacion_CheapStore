@@ -14,6 +14,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -52,6 +54,9 @@ dependencies {
     implementation ("com.itextpdf:itextg:5.5.10")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("androidx.activity:activity-ktx:1.7.2")
+    implementation ("com.google.zxing:core:3.5.2")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }

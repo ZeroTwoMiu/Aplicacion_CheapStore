@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -36,6 +39,11 @@
             android:theme="@style/Theme.TiendaApp2.NoActionBar">
 
         </activity>
+        <activity
+            android:name="com.example.tiendaapp2.ui.producto.CaptureActivityPortrait"
+            android:screenOrientation="portrait"
+            android:theme="@style/zxing_CaptureTheme"
+            tools:replace="android:screenOrientation" />
     </application>
 
 </manifest>
