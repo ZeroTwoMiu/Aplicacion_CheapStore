@@ -18,10 +18,9 @@
             app:destination="@id/nav_producto" />
         <action
             android:id="@+id/action_nav_producto_to_nav_producto_editar"
-            app:destination="@id/nav_producto_editar" />
-        <argument
-            android:name="idProd"
-            app:argType="integer" />
+            app:destination="@id/nav_producto_editar" /> <argument
+        android:name="idProd"
+        app:argType="integer" />
     </fragment>
 
     <fragment
@@ -35,11 +34,13 @@
         android:name="com.example.tiendaapp2.ui.proveedor.ProveedorFragment"
         android:label="@string/menu_proveedor"
         tools:layout="@layout/fragment_proveedor" />
+
     <fragment
         android:id="@+id/nav_producto_agregar"
         android:name="com.example.tiendaapp2.ui.producto.ProductoAgregar"
         android:label="@string/menu_producto_agregar"
         tools:layout="@layout/fragment_producto_agregar" />
+
     <fragment
         android:id="@+id/nav_producto_editar"
         android:name="com.example.tiendaapp2.ui.producto.ProductoEditar"
@@ -49,59 +50,30 @@
             android:id="@+id/action_nav_producto_editar_to_nav_producto"
             app:destination="@id/nav_producto" />
     </fragment>
-    <!-- Fragmento principal de empleados -->
-    <fragment
-        android:id="@+id/nav_empleado"
-        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoFragment"
-        android:label="Empleado"
-        tools:layout="@layout/fragment_empleado">
-
-        <!-- Acción para ir a la vista de agregar empleado -->
-        <action
-            android:id="@+id/action_nav_empleado_to_nav_empleado_agregar"
-            app:destination="@id/nav_empleado_agregar" />
-        <!-- Acción para volver a la vista principal de empleados -->
-        <action
-            android:id="@+id/action_nav_empleado_self"
-            app:destination="@id/nav_empleado" />
-
-        <!-- Acción para ir a la vista de editar empleado -->
-        <action
-            android:id="@+id/action_nav_empleado_to_nav_empleado_editar"
-            app:destination="@id/nav_empleado_editar" />
-
-        <!-- Argumento para pasar el ID del empleado a editar -->
-        <argument
-            android:name="idEmpleado"
-            app:argType="integer" />
-    </fragment>
-
-    <!-- Fragmento para agregar empleado -->
-    <fragment
-        android:id="@+id/nav_empleado_agregar"
-        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoAgregar"
-        android:label="Agregar Empleado"
-        tools:layout="@layout/fragment_empleado_agregar" />
-
-    <!-- Fragmento para editar empleado -->
-    <fragment
-        android:id="@+id/nav_empleado_editar"
-        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoEditar"
-        android:label="Editar Empleado"
-        tools:layout="@layout/fragment_empleado_editar">
-
-        <!-- Acción para volver al listado de empleados -->
-        <action
-            android:id="@+id/action_nav_empleado_editar_to_nav_empleado"
-            app:destination="@id/nav_empleado" />
-    </fragment>
-
 
     <fragment
         android:id="@+id/nav_reportes"
         android:name="com.example.tiendaapp2.ui.reportes.ReportesFragment"
         android:label="Reportes"
         tools:layout="@layout/fragment_reportes" />
+
+    <fragment
+        android:id="@+id/nav_compra"  android:name="com.example.tiendaapp2.ui.compra.compraAgregar" android:label="@string/menu_compra"
+        tools:layout="@layout/fragment_compra_agregar">
+        <action
+            android:id="@+id/action_compra_agregar_to_compra_listar"
+            app:destination="@id/nav_compra_listar" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_compra_listar"
+        android:name="com.example.tiendaapp2.ui.compra.compraListar"
+        android:label="Lista de Compras"
+        tools:layout="@layout/fragment_compra_listar">
+        <action
+            android:id="@+id/action_compra_listar_to_compra_agregar"
+            app:destination="@id/nav_compra" /> </fragment>
+
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.tiendaapp2.MainActivity"

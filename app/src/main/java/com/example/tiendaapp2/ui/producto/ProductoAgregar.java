@@ -429,4 +429,6 @@ public class ProductoAgregar extends Fragment implements View.OnClickListener, A
         cod.requestFocus();
     }
 
+
+
 }
