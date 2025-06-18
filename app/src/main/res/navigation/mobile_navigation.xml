@@ -5,11 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_producto">
 
+    <!-- Fragment Producto -->
     <fragment
         android:id="@+id/nav_producto"
         android:name="com.example.tiendaapp2.ui.producto.ProductoFragment"
         android:label="@string/menu_producto"
-        tools:layout="@layout/fragment_producto" >
+        tools:layout="@layout/fragment_producto">
         <action
             android:id="@+id/action_nav_producto_to_nav_producto_agregar"
             app:destination="@id/nav_producto_agregar" />
@@ -18,22 +19,11 @@
             app:destination="@id/nav_producto" />
         <action
             android:id="@+id/action_nav_producto_to_nav_producto_editar"
-            app:destination="@id/nav_producto_editar" /> <argument
-        android:name="idProd"
-        app:argType="integer" />
+            app:destination="@id/nav_producto_editar" />
+        <argument
+            android:name="idProd"
+            app:argType="integer" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_cliente"
-        android:name="com.example.tiendaapp2.ui.cliente.ClienteFragment"
-        android:label="@string/menu_cliente"
-        tools:layout="@layout/fragment_cliente" />
-
-    <fragment
-        android:id="@+id/nav_proveedor"
-        android:name="com.example.tiendaapp2.ui.proveedor.ProveedorFragment"
-        android:label="@string/menu_proveedor"
-        tools:layout="@layout/fragment_proveedor" />
 
     <fragment
         android:id="@+id/nav_producto_agregar"
@@ -51,14 +41,32 @@
             app:destination="@id/nav_producto" />
     </fragment>
 
+    <!-- Fragment Cliente -->
+    <fragment
+        android:id="@+id/nav_cliente"
+        android:name="com.example.tiendaapp2.ui.cliente.ClienteFragment"
+        android:label="@string/menu_cliente"
+        tools:layout="@layout/fragment_cliente" />
+
+    <!-- Fragment Proveedor -->
+    <fragment
+        android:id="@+id/nav_proveedor"
+        android:name="com.example.tiendaapp2.ui.proveedor.ProveedorFragment"
+        android:label="@string/menu_proveedor"
+        tools:layout="@layout/fragment_proveedor" />
+
+    <!-- Fragment Reportes -->
     <fragment
         android:id="@+id/nav_reportes"
         android:name="com.example.tiendaapp2.ui.reportes.ReportesFragment"
         android:label="Reportes"
         tools:layout="@layout/fragment_reportes" />
 
+    <!-- Fragment Compra -->
     <fragment
-        android:id="@+id/nav_compra"  android:name="com.example.tiendaapp2.ui.compra.compraAgregar" android:label="@string/menu_compra"
+        android:id="@+id/nav_compra"
+        android:name="com.example.tiendaapp2.ui.compra.compraAgregar"
+        android:label="@string/menu_compra"
         tools:layout="@layout/fragment_compra_agregar">
         <action
             android:id="@+id/action_compra_agregar_to_compra_listar"
@@ -72,8 +80,43 @@
         tools:layout="@layout/fragment_compra_listar">
         <action
             android:id="@+id/action_compra_listar_to_compra_agregar"
-            app:destination="@id/nav_compra" /> </fragment>
+            app:destination="@id/nav_compra" />
+    </fragment>
 
+    <!-- Fragment Empleado -->
+    <fragment
+        android:id="@+id/nav_empleado"
+        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoFragment"
+        android:label="Empleado"
+        tools:layout="@layout/fragment_empleado">
+        <action
+            android:id="@+id/action_nav_empleado_to_nav_empleado_agregar"
+            app:destination="@id/nav_empleado_agregar" />
+        <action
+            android:id="@+id/action_nav_empleado_to_nav_empleado_editar"
+            app:destination="@id/nav_empleado_editar" />
+        <action
+            android:id="@+id/action_nav_empleado_self"
+            app:destination="@id/nav_empleado" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_empleado_agregar"
+        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoAgregar"
+        android:label="Agregar Empleado"
+        tools:layout="@layout/fragment_empleado_agregar" />
+
+    <fragment
+        android:id="@+id/nav_empleado_editar"
+        android:name="com.example.tiendaapp2.ui.empleado.EmpleadoEditar"
+        android:label="Editar Empleado"
+        tools:layout="@layout/fragment_empleado_editar">
+        <action
+            android:id="@+id/action_nav_empleado_editar_to_nav_empleado"
+            app:destination="@id/nav_empleado" />
+    </fragment>
+
+    <!-- MainActivity -->
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.tiendaapp2.MainActivity"
