@@ -5,12 +5,13 @@ import androidx.annotation.NonNull;
 public class Proveedor {
     private int id;
     private String nombre;
-    private String nDoc; // ndoc_proveedor
-    private String celular; // cel_proveedor
-    private String email; // em_proveedor
-    private String direccion; // dir_proveedor
-    private int estado; // est_proveedor
+    private String nDoc;
+    private String celular;
+    private String email;
+    private String direccion;
+    private int estado;
 
+    // Constructor completo
     public Proveedor(int id, String nombre, String nDoc, String celular, String email, String direccion, int estado) {
         this.id = id;
         this.nombre = nombre;
@@ -21,7 +22,12 @@ public class Proveedor {
         this.estado = estado;
     }
 
-    // Getters y Setters
+    // Constructor simplificado (solo id y nombre)
+    public Proveedor(int id, String nombre) {
+        this(id, nombre, "", "", "", "", 1);
+    }
+
+    // Getters y setters
     public int getId() {
         return id;
     }
@@ -77,7 +83,6 @@ public class Proveedor {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-
 
     @NonNull
     @Override

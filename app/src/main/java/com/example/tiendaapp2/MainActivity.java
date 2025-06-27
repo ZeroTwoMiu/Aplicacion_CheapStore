@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         SharedPreferences preferences = getSharedPreferences("datos", MODE_PRIVATE);
         String nomCargo = preferences.getString("nom_cargo", "");
         mostrarDialogoCargo("", nomCargo); // puedes pasar "" como tipoCargo si ya no lo necesitas

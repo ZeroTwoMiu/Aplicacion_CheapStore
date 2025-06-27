@@ -41,6 +41,36 @@
             app:destination="@id/nav_producto" />
     </fragment>
 
+    <!-- Fragment CompraAgregar -->
+    <fragment
+        android:id="@+id/nav_compra_agregar"
+        android:name="com.example.tiendaapp2.ui.compra.CompraAgregarFragment"
+        android:label="Registrar Compra"
+        tools:layout="@layout/fragment_compra_agregar" />
+
+    <!-- Fragment CompraListar -->
+    <fragment
+        android:id="@+id/nav_compra"
+        android:name="com.example.tiendaapp2.ui.compra.CompraListarFragment"
+        android:label="Compras Realizadas"
+        tools:layout="@layout/fragment_compra_listar">
+        <action
+            android:id="@+id/action_nav_compra_to_nav_compra_agregar"
+            app:destination="@id/nav_compra_agregar" />
+    </fragment>
+
+    <!-- Fragment CompraDetalle -->
+    <fragment
+        android:id="@+id/nav_compra_detalle"
+        android:name="com.example.tiendaapp2.ui.compra.CompraDetalleFragment"
+        android:label="Detalle de Compra"
+        tools:layout="@layout/fragment_compra_detalle">
+        <argument
+            android:name="idCompra"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
     <!-- Fragment Cliente -->
     <fragment
         android:id="@+id/nav_cliente"
@@ -61,27 +91,6 @@
         android:name="com.example.tiendaapp2.ui.reportes.ReportesFragment"
         android:label="Reportes"
         tools:layout="@layout/fragment_reportes" />
-
-    <!-- Fragment Compra -->
-    <fragment
-        android:id="@+id/nav_compra"
-        android:name="com.example.tiendaapp2.ui.compra.compraAgregar"
-        android:label="@string/menu_compra"
-        tools:layout="@layout/fragment_compra_agregar">
-        <action
-            android:id="@+id/action_compra_agregar_to_compra_listar"
-            app:destination="@id/nav_compra_listar" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_compra_listar"
-        android:name="com.example.tiendaapp2.ui.compra.compraListar"
-        android:label="Lista de Compras"
-        tools:layout="@layout/fragment_compra_listar">
-        <action
-            android:id="@+id/action_compra_listar_to_compra_agregar"
-            app:destination="@id/nav_compra" />
-    </fragment>
 
     <!-- Fragment Empleado -->
     <fragment
@@ -115,6 +124,48 @@
             android:id="@+id/action_nav_empleado_editar_to_nav_empleado"
             app:destination="@id/nav_empleado" />
     </fragment>
+
+    <!-- Fragment VentaAgregar -->
+    <fragment
+        android:id="@+id/nav_venta_agregar"
+        android:name="com.example.tiendaapp2.ui.venta.VentaAgregarFragment"
+        android:label="Registrar Venta"
+        tools:layout="@layout/fragment_venta_agregar" />
+
+    <!-- Fragment VentaListar -->
+    <fragment
+        android:id="@+id/nav_venta"
+        android:name="com.example.tiendaapp2.ui.venta.VentaListarFragment"
+        android:label="Ventas Realizadas"
+        tools:layout="@layout/fragment_venta_listar">
+        <action
+            android:id="@+id/action_nav_venta_to_nav_venta_agregar"
+            app:destination="@id/nav_venta_agregar" />
+    </fragment>
+
+    <!-- Fragment VentaDetalle -->
+    <fragment
+        android:id="@+id/nav_venta_detalle"
+        android:name="com.example.tiendaapp2.ui.venta.VentaDetalleFragment"
+        android:label="Detalle de Venta"
+        tools:layout="@layout/fragment_venta_detalle">
+        <argument
+            android:name="idVenta"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_venta_grafico"
+        android:name="com.example.tiendaapp2.ui.venta.VentaGraficoFragment"
+        android:label="Gráfico de Ventas"
+        tools:layout="@layout/fragment_venta_grafico" />
+
+    <fragment
+        android:id="@+id/nav_compra_grafico"
+        android:name="com.example.tiendaapp2.ui.compra.CompraGraficoFragment"
+        android:label="Gráfico de Compras"
+        tools:layout="@layout/fragment_compra_grafico" />
 
     <!-- MainActivity -->
     <activity

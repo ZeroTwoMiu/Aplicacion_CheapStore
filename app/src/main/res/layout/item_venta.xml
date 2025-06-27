@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Cliente -->
+    <TextView
+        android:id="@+id/txtClienteVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliente"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Comprobante -->
+    <TextView
+        android:id="@+id/txtComprobanteVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comprobante"
+        android:textSize="14sp"
+        android:layout_marginBottom="2dp" />
+
+    <!-- Número de Venta -->
+    <TextView
+        android:id="@+id/txtNumeroVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número de Venta"
+        android:textSize="14sp"
+        android:layout_marginBottom="2dp" />
+
+    <!-- Fecha -->
+    <TextView
+        android:id="@+id/txtFechaVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:textSize="14sp" />
+</LinearLayout>

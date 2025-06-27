@@ -5,63 +5,63 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <!-- Spinner de Proveedores -->
+        <!-- Spinner de Cliente -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecciona un proveedor" />
+            android:text="Selecciona un Cliente" />
 
         <Spinner
-            android:id="@+id/spnProveedor"
+            android:id="@+id/spnCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
-        <!-- Spinner de Productos -->
+        <!-- Spinner de Producto -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecciona un producto" />
+            android:text="Selecciona un Producto" />
 
         <Spinner
             android:id="@+id/spnProducto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
         <!-- Cantidad -->
         <EditText
-            android:id="@+id/edtCantidad"
+            android:id="@+id/edtCantidadVenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Cantidad"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" />
 
+        <!-- Precio de Venta (autocompletado) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio de Compra"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"/>
+            android:text="Precio de Venta" />
 
         <TextView
-            android:id="@+id/txtPrecio"
+            android:id="@+id/txtPrecioVenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="Precio Compra"
-            android:textColor="@android:color/black"
+            android:text="Precio de Venta: S/ 0.00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:background="#EEEEEE"
             android:layout_marginBottom="12dp"/>
 
         <!-- Botón Agregar Detalle -->
         <Button
-            android:id="@+id/btnAgregarDetalle"
+            android:id="@+id/btnAgregarDetalleVenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Agregar Detalle"
@@ -71,24 +71,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detalle de Compra"
+            android:text="Detalle de Venta"
             android:textStyle="bold"
             android:layout_marginBottom="4dp" />
 
         <ListView
-            android:id="@+id/lstCompraDetalle"
+            android:id="@+id/lstVentaDetalle"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
             android:divider="@android:color/darker_gray"
-            android:dividerHeight="1dp" />
+            android:dividerHeight="1dp"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Botón Finalizar Compra -->
+        <!-- Botón Finalizar Venta -->
         <Button
-            android:id="@+id/btnFinalizarCompra"
+            android:id="@+id/btnFinalizarVenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finalizar Compra"
+            android:text="Finalizar Venta"
             android:backgroundTint="@color/purple_700"
             android:textColor="@android:color/white" />
 

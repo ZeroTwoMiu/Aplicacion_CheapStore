@@ -32,5 +32,13 @@
             android:id="@+id/nav_reportes"
             android:icon="@drawable/reportes"
             android:title="@string/reportes" />
+        <item
+            android:id="@+id/nav_venta_grafico"
+            android:icon="@drawable/ic_grafico_venta"
+            android:title="Gráfico de Ventas" />
+        <item
+            android:id="@+id/nav_compra_grafico"
+            android:icon="@drawable/ic_grafico_compra"
+            android:title="Gráfico Compras" />
     </group>
 </menu>

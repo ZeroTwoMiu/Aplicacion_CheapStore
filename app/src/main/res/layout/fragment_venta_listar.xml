@@ -6,19 +6,20 @@
     android:padding="12dp">
 
     <Button
-        android:id="@+id/btnRegistrarCompraDesdeLista"
+        android:id="@+id/btnRegistrarVentaDesdeLista"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar Nueva Compra"
+        android:text="Registrar Nueva Venta"
         android:layout_marginBottom="8dp" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshCompras"
+        android:id="@+id/swipeRefreshVentas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <ListView
-            android:id="@+id/lstCompras"
+            android:id="@+id/lstVentas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/darker_gray"

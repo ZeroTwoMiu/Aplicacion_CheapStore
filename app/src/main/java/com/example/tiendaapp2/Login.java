@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         contraEditText = findViewById(R.id.contra);
         loginButton = findViewById(R.id.loginButton);
         signupText = findViewById(R.id.signupText);
-        progressBarLogin = findViewById(R.id.progressBarLogin); // debes agregar este ProgressBar en tu XML
+        progressBarLogin = findViewById(R.id.progressBarLogin);
 
         loginButton.setOnClickListener(this);
 
