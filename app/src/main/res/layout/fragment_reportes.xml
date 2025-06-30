@@ -10,6 +10,33 @@
     <!-- Título -->
 
     <!-- Lista de Reportes -->
+
+    <!-- Botón de descarga -->
+
+    <Button
+        android:id="@+id/btnGraficoCompras"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Grafico de Compras"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGraficoVentas"
+        app:layout_constraintVertical_bias="0.055" />
+
+    <Button
+        android:id="@+id/btnGraficoVentas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Grafico de Ventas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDescargarReporte"
+        app:layout_constraintVertical_bias="0.046" />
+
     <TextView
         android:id="@+id/tvTituloReportes"
         android:layout_width="0dp"
@@ -18,31 +45,36 @@
         android:text="Reportes"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ListView
         android:id="@+id/lstReportes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="382dp"
+        android:layout_height="293dp"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTituloReportes"
-        app:layout_constraintBottom_toTopOf="@+id/btnDescargarReporte"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloReportes"
+        app:layout_constraintVertical_bias="0.029" />
 
-    <!-- Botón de descarga -->
     <Button
         android:id="@+id/btnDescargarReporte"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Descargar Reporte"
-        app:layout_constraintTop_toBottomOf="@+id/lstReportes"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lstReportes"
+        app:layout_constraintVertical_bias="0.028" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

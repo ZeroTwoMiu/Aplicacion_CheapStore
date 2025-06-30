@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -52,6 +54,8 @@ public class ReportesFragment extends Fragment {
 
     private ListView lstReportes;
     private Button btnDescargarReporte;
+    private Button btnGraficoVenta;
+    private Button btnGraficoCompra;
 
     private ArrayList<String> opcionesReporte;
 
@@ -61,14 +65,6 @@ public class ReportesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ReportesFragment newInstance(String param1, String param2) {
-        ReportesFragment fragment = new ReportesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,11 +85,22 @@ public class ReportesFragment extends Fragment {
         lstReportes = view.findViewById(R.id.lstReportes);
         btnDescargarReporte = view.findViewById(R.id.btnDescargarReporte);
 
+        btnGraficoVenta = view.findViewById(R.id.btnGraficoVentas);
+        btnGraficoCompra = view.findViewById(R.id.btnGraficoCompras);
+
+        btnGraficoVenta.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_nav_reportes_to_nav_venta_grafico);
+        });
+
+        btnGraficoCompra.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_nav_reportes_to_nav_compra_grafico);
+        });
+
         // Lista de opciones
         opcionesReporte = new ArrayList<>();
         opcionesReporte.add("Reporte de Productos");
-        // En el futuro podrías añadir más:
-        // opcionesReporte.add("Reporte de Proveedores");
 
         // Adaptador
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, opcionesReporte);

@@ -90,7 +90,14 @@
         android:id="@+id/nav_reportes"
         android:name="com.example.tiendaapp2.ui.reportes.ReportesFragment"
         android:label="Reportes"
-        tools:layout="@layout/fragment_reportes" />
+        tools:layout="@layout/fragment_reportes" >
+        <action
+            android:id="@+id/action_nav_reportes_to_nav_venta_grafico"
+            app:destination="@id/nav_venta_grafico" />
+        <action
+            android:id="@+id/action_nav_reportes_to_nav_compra_grafico"
+            app:destination="@id/nav_compra_grafico" />
+    </fragment>
 
     <!-- Fragment Empleado -->
     <fragment
