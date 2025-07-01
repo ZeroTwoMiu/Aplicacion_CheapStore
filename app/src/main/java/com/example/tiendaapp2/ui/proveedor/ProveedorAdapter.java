@@ -53,16 +53,23 @@ public class ProveedorAdapter extends BaseAdapter {
         // Referencias
         TextView tvId = convertView.findViewById(R.id.tvIdProveedor);
         TextView tvNombre = convertView.findViewById(R.id.tvNombreProveedor);
+        TextView tvCelular = convertView.findViewById(R.id.tvCelularProveedor);
         TextView tvDni = convertView.findViewById(R.id.tvDniProveedor);
         TextView tvEmail = convertView.findViewById(R.id.tvEmailProveedor);
+        TextView tvDir = convertView.findViewById(R.id.tvDireccionProveedor);
+        TextView tvEst = convertView.findViewById(R.id.tvEstadoProveedor);
+
         Button btnEditar = convertView.findViewById(R.id.btnEditarProveedor);
         Button btnEliminar = convertView.findViewById(R.id.btnEliminarProveedor);
 
         // Datos
         tvId.setText(String.valueOf(proveedor.getId()));
         tvNombre.setText("Nombre: " + proveedor.getNombre());
+        tvCelular.setText("Celular: " + proveedor.getCelular());
         tvDni.setText("N° Doc: " + proveedor.getnDoc());
         tvEmail.setText("Email: " + proveedor.getEmail());
+        tvDir.setText("Dirección: " + proveedor.getDireccion());
+        tvEst.setText("Estado: " + (proveedor.getEstado() == 1 ? "Activo" : "Inactivo"));
 
         // Acciones
         btnEditar.setOnClickListener(v -> editarProveedor(proveedor.getId(), context));

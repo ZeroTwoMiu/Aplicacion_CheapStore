@@ -53,8 +53,18 @@ public class EmpleadoAdapter extends BaseAdapter {
         // Vistas
         TextView tvId = convertView.findViewById(R.id.tvId);
         TextView tvNombre = convertView.findViewById(R.id.tvNombres);
+        TextView tvApellidoPaterno = convertView.findViewById(R.id.tvApat);
+        TextView tvApellidoMaterno = convertView.findViewById(R.id.tvAmat);
         TextView tvDni = convertView.findViewById(R.id.tvDni);
+        TextView tvCelular = convertView.findViewById(R.id.tvCelular);
+        TextView tvEmail = convertView.findViewById(R.id.tvEmail);
+        TextView tvDireccion = convertView.findViewById(R.id.tvDireccion);
+        TextView tvFechaNacimiento = convertView.findViewById(R.id.tvFechaNac);
         TextView tvUsuario = convertView.findViewById(R.id.tvUsuario);
+        TextView tvPassword = convertView.findViewById(R.id.tvPassword);
+        TextView tvCargo = convertView.findViewById(R.id.tvCargo);
+        TextView tvEstado = convertView.findViewById(R.id.tvEstado);
+
         Button btnEditar = convertView.findViewById(R.id.btnEditar);
         Button btnEliminar = convertView.findViewById(R.id.btnEliminar);
 
@@ -64,9 +74,18 @@ public class EmpleadoAdapter extends BaseAdapter {
 
         // Valores
         tvId.setText(String.valueOf(empleado.getId()));
-        tvNombre.setText("Nombre: " + empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno());
+        tvNombre.setText("Nombre: " + empleado.getNombre());
+        tvApellidoPaterno.setText("Apellido Paterno: " + empleado.getApellidoPaterno());
+        tvApellidoMaterno.setText("Apellido Materno: " + empleado.getApellidoMaterno());
         tvDni.setText("DNI: " + empleado.getNumDocumento());
+        tvCelular.setText("Celular: " + empleado.getCelular());
+        tvEmail.setText("Email: " + empleado.getCorreo());
+        tvDireccion.setText("Dirección: " + empleado.getDireccion());
+        tvFechaNacimiento.setText("Fecha de nacimiento: " + empleado.getFechaNacimiento());
         tvUsuario.setText("Usuario: " + empleado.getUsuario());
+        tvPassword.setText("Contraseña: " + empleado.getContrasena());
+        tvCargo.setText("Cargo: " + empleado.getIdCargo());
+        tvEstado.setText("Estado: " + empleado.getEstado());
 
         return convertView;
     }

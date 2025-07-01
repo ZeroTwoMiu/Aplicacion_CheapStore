@@ -65,7 +65,9 @@ public class ClienteAdapter extends BaseAdapter {
 
         // Mostrar datos
         tvId.setText(String.valueOf(cliente.getId()));
-        tvNombre.setText("Nombre: " + cliente.getNombreCompleto());
+        tvNombre.setText("Nombre: " + cliente.getNombre());
+        tvApat.setText("Apellido Paterno: " + cliente.getApellidoPaterno());
+        tvAmat.setText("Apellido Materno: " + cliente.getApellidoMaterno());
         tvDoc.setText("N° Documento: " + cliente.getNumeroDocumento());
         tvCel.setText("Celular: " + cliente.getCelular());
         tvCorreo.setText("Correo: " + cliente.getEmail());

@@ -31,8 +31,20 @@ public class Cliente {
         return id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public String getNombreCompleto() {
         return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
     public String getNumeroDocumento() {
