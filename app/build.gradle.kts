@@ -49,8 +49,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.loopj.android:android-async-http:1.4.11")
     implementation ("com.itextpdf:itextg:5.5.10")
     implementation("com.github.bumptech.glide:glide:4.16.0")

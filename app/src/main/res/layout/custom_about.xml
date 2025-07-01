@@ -24,7 +24,7 @@
             android:id="@+id/tvAboutTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Venta de Hardware y Software"
+            android:text="CheapStore"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#2C3E50"
@@ -46,7 +46,7 @@
             android:id="@+id/tvAboutContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contacto:\nemail@empresa.com\nwww.tuempresa.com"
+            android:text="Contacto:\ncheapstore@cheap.com\nwww.facebook.com/CheapStorPe/"
             android:textSize="14sp"
             android:textColor="#7F8C8D"
             android:gravity="center"
@@ -55,10 +55,27 @@
         <!-- Versión -->
         <TextView
             android:id="@+id/tvAboutVersion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Versión 1.0"
-            android:textSize="14sp"
-            android:textColor="#95A5A6" />
+            android:layout_width="298dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:text="Version Beta 0.98"
+            android:textColor="#95A5A6"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAboutEncuentranos"
+            android:layout_width="213dp"
+            android:layout_height="31dp"
+            android:gravity="center"
+            android:rotation="0"
+            android:text="Encuéntranos en"
+            android:textColor="#34495E"
+            android:textSize="16sp" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>

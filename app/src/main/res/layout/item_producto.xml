@@ -136,6 +136,7 @@
         android:id="@+id/btnEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
         android:text="Editar"
         app:icon="@android:drawable/ic_popup_sync"
         app:layout_constraintBottom_toBottomOf="parent"

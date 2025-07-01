@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Theme.TiendaApp2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -12,14 +13,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
+        <item name="android:windowSplashScreenBackground">@color/icono_logo_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/icono_logo_round</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@null</item>
     </style>
-
-    <style name="Theme.TiendaApp2.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.TiendaApp2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.TiendaApp2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

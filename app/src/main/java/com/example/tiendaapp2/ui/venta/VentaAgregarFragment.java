@@ -219,6 +219,7 @@ public class VentaAgregarFragment extends Fragment {
 
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
                 navController.popBackStack(); // Para volver automáticamente sin recrear
+                Toast.makeText(getContext(), "Venta registrada correctamente", Toast.LENGTH_SHORT).show();
             }
 
             @Override

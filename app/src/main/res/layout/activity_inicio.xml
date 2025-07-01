@@ -9,12 +9,13 @@
 
     <ImageView
         android:id="@+id/imgMenuFoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#1B0C9E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Logo principal"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/logoinicio" />
 </androidx.constraintlayout.widget.ConstraintLayout>

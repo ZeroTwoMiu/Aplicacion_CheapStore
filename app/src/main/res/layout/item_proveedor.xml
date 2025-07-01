@@ -81,10 +81,11 @@
         android:id="@+id/btnEditarProveedor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
         android:text="Editar"
         app:icon="@android:drawable/ic_menu_edit"
-        app:layout_constraintTop_toBottomOf="@id/tvIdProveedor"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvIdProveedor" />
 
     <!-- Botón Eliminar -->
     <Button

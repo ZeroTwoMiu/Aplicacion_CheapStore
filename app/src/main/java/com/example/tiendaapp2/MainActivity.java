@@ -19,6 +19,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(item -> {
-            modalAbout(); //mostrar información sobr el app
+            modalAbout();
             return true;
         });
 
@@ -171,15 +177,22 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.custom_about, null);
 
-        TextView tvVersion = dialogView.findViewById(R.id.tvAboutVersion);
-        String version = BuildConfig.VERSION_NAME;
-        tvVersion.setText("Versión " + version);
-
         builder.setView(dialogView);
         builder.setPositiveButton("Cerrar", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        MapView mapView = dialogView.findViewById(R.id.mapView);
+
+        Bundle mapViewBundle = null;
+        mapView.onCreate(mapViewBundle);
+        mapView.onResume();
+        mapView.getMapAsync(googleMap -> {
+            LatLng tienda = new LatLng(-12.055032765768894, -77.0377009886986);
+            googleMap.addMarker(new MarkerOptions().position(tienda).title("Nuestra Tienda"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tienda, 16));
+        });
     }
 
     private void modalCambiarDatos() {
