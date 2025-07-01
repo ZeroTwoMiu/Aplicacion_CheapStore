@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Nombre -->
+    <TextView
+        android:id="@+id/tvNombreProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nombre del proveedor"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- N° Documento -->
+    <TextView
+        android:id="@+id/tvDniProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="N° Documento"
+        app:layout_constraintTop_toBottomOf="@id/tvNombreProveedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Celular -->
+    <TextView
+        android:id="@+id/tvCelularProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Celular"
+        app:layout_constraintTop_toBottomOf="@id/tvDniProveedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tvEmailProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        app:layout_constraintTop_toBottomOf="@id/tvCelularProveedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Dirección -->
+    <TextView
+        android:id="@+id/tvDireccionProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dirección"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailProveedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Estado -->
+    <TextView
+        android:id="@+id/tvEstadoProveedor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Estado"
+        app:layout_constraintTop_toBottomOf="@id/tvDireccionProveedor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ID (invisible) -->
+    <TextView
+        android:id="@+id/tvIdProveedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/tvEstadoProveedor"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Botón Editar -->
+    <Button
+        android:id="@+id/btnEditarProveedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:layout_constraintTop_toBottomOf="@id/tvIdProveedor"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Botón Eliminar -->
+    <Button
+        android:id="@+id/btnEliminarProveedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"
+        android:backgroundTint="#FF0000"
+        android:textColor="@android:color/white"
+        app:icon="@android:drawable/ic_delete"
+        app:layout_constraintTop_toBottomOf="@id/tvIdProveedor"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
