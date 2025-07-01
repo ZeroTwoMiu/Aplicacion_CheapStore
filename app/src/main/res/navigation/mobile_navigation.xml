@@ -79,11 +79,44 @@
         tools:layout="@layout/fragment_cliente" />
 
     <!-- Fragment Proveedor -->
+
     <fragment
         android:id="@+id/nav_proveedor"
         android:name="com.example.tiendaapp2.ui.proveedor.ProveedorFragment"
         android:label="@string/menu_proveedor"
-        tools:layout="@layout/fragment_proveedor" />
+        tools:layout="@layout/fragment_proveedor">
+
+        <action
+            android:id="@+id/action_nav_proveedor_to_nav_proveedor_agregar"
+            app:destination="@id/nav_proveedor_agregar" />
+
+        <action
+            android:id="@+id/action_nav_proveedor_to_nav_proveedor_editar"
+            app:destination="@id/nav_proveedor_editar" />
+
+        <action
+            android:id="@+id/action_nav_proveedor_self"
+            app:destination="@id/nav_proveedor" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_proveedor_agregar"
+        android:name="com.example.tiendaapp2.ui.proveedor.ProveedorAgregar"
+        android:label="Agregar Proveedor"
+        tools:layout="@layout/fragment_proveedor_agregar" />
+
+    <fragment
+        android:id="@+id/nav_proveedor_editar"
+        android:name="com.example.tiendaapp2.ui.proveedor.ProveedorEditar"
+        android:label="Editar Proveedor"
+        tools:layout="@layout/fragment_proveedor_editar">
+
+        <action
+            android:id="@+id/action_nav_proveedor_editar_to_nav_proveedor"
+            app:destination="@id/nav_proveedor" />
+    </fragment>
+
 
     <!-- Fragment Reportes -->
     <fragment
