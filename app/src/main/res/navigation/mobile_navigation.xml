@@ -76,7 +76,39 @@
         android:id="@+id/nav_cliente"
         android:name="com.example.tiendaapp2.ui.cliente.ClienteFragment"
         android:label="@string/menu_cliente"
-        tools:layout="@layout/fragment_cliente" />
+        tools:layout="@layout/fragment_cliente">
+
+        <action
+            android:id="@+id/action_nav_cliente_to_nav_cliente_agregar"
+            app:destination="@id/nav_cliente_agregar" />
+
+        <action
+            android:id="@+id/action_nav_cliente_to_nav_cliente_editar"
+            app:destination="@id/nav_cliente_editar" />
+
+        <action
+            android:id="@+id/action_nav_cliente_self"
+            app:destination="@id/nav_cliente" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_cliente_editar"
+        android:name="com.example.tiendaapp2.ui.cliente.ClienteEditar"
+        android:label="Editar Cliente"
+        tools:layout="@layout/fragment_cliente_editar">
+        <action
+            android:id="@+id/action_nav_cliente_editar_to_nav_cliente"
+            app:destination="@id/nav_cliente" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cliente_agregar"
+        android:name="com.example.tiendaapp2.ui.cliente.ClienteAgregar"
+        android:label="Agregar Cliente"
+        tools:layout="@layout/fragment_cliente_agregar" />
+
+
 
     <!-- Fragment Proveedor -->
 
